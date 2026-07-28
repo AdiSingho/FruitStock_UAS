@@ -2,28 +2,28 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreKategoriRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true; // Ubah ke true
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'nama_kategori' => ['required', 'string', 'max:255', 'unique:kategoris,nama_kategori'],
+        ];
+    }
+    
+    // (Opsional) Pesan error bahasa Indonesia
+    public function messages(): array
+    {
+        return [
+            'nama_kategori.required' => 'Nama kategori wajib diisi.',
+            'nama_kategori.unique' => 'Kategori ini sudah terdaftar di sistem.',
         ];
     }
 }
