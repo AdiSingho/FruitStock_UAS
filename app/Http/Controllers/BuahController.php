@@ -12,10 +12,10 @@ class BuahController extends Controller
 {
     public function index(Request $request)
     {
-        // Memulai query dengan relasi kategori dan stoks
+        // efisiensi agar tidak terjadi n+1
         $query = \App\Models\Buah::with(['kategori', 'stoks']);
 
-        // Cek jika ada input pencarian
+        //  input pencarian
         if ($request->has('search') && $request->search != '') {
             $query->where('nama_buah', 'LIKE', '%' . $request->search . '%');
         }
