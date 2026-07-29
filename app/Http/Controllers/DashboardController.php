@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stok;
-use App\Models\Penjualan;
+use App\Models\Transaksi; 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,7 +29,7 @@ class DashboardController extends Controller
             ->get();
 
         // 5. MENGHITUNG PENJUALAN HARI INI
-        $penjualanHariIni = Penjualan::whereDate('created_at', Carbon::today())->sum('total_harga');
+        $penjualanHariIni = Transaksi::whereDate('created_at', Carbon::today())->sum('total_harga');
 
         return view('dashboard.index', compact(
             'totalStok', 
