@@ -3,6 +3,14 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{AuthController, DashboardController, KategoriController, GudangController, SupplierController, BuahController, StokController, TransaksiController, QcReturController, PosController, ProfileController, LaporanController};
 
+//Mengarahkan ke login jika belum login dan mengearahkan ke dashboard jika sudah login
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
+});
+
 // Guest (Belum Login)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
